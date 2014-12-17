@@ -2,7 +2,6 @@ package bacta.network.lang;
 
 import java.lang.ref.WeakReference;
 import java.util.*;
-import java.util.Observer;
 
 /**
  * Created by Kyle on 9/5/2014.
@@ -18,7 +17,7 @@ public final class ObservableEventRegistry<T> {
     public void register(Observer obj, T event) {
         List<WeakReference<Observer>> list = registry.get(event);
         if(list == null) {
-            list = Collections.synchronizedList(new ArrayList<>());
+            list = Collections.synchronizedList(new ArrayList<WeakReference<Observer>>());
             registry.put(event, list);
         }
 
@@ -38,12 +37,12 @@ public final class ObservableEventRegistry<T> {
     public void notifyObservers(T event) {
         List<WeakReference<Observer>> list = registry.get(event);
         if(list != null) {
-            list.forEach(s -> {
-                Observer observer = s.get();
+            for(WeakReference<Observer> observerRef : list) {
+                Observer observer = observerRef.get();
                 if(observer != null) {
                     observer.update(event);
                 }
-            });
+            }
         }
     }
 }
