@@ -1,7 +1,7 @@
 package bacta.data;
 
-import bacta.network.object.NetworkObject;
-import bacta.network.object.account.Account;
+import bacta.object.NetworkObject;
+import bacta.object.account.Account;
 
 import java.util.Set;
 

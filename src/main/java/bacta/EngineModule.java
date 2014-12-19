@@ -2,10 +2,10 @@ package bacta;
 
 import bacta.conf.BactaConfiguration;
 import bacta.conf.ini.IniBactaConfiguration;
-import bacta.network.service.objectfactory.NetworkObjectFactory;
-import bacta.network.service.objectfactory.impl.GuiceNetworkObjectFactory;
-import bacta.network.service.scheduler.SchedulerService;
-import bacta.network.service.scheduler.TaskSchedulerService;
+import bacta.service.objectfactory.NetworkObjectFactory;
+import bacta.service.objectfactory.impl.GuiceNetworkObjectFactory;
+import bacta.service.scheduler.SchedulerService;
+import bacta.service.scheduler.TaskSchedulerService;
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
 
