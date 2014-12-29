@@ -1,22 +1,10 @@
 package com.ocdsoft.bacta.engine.buffer;
 
-import io.netty.util.CharsetUtil;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.channels.GatheringByteChannel;
-import java.nio.channels.ScatteringByteChannel;
-import java.nio.charset.Charset;
-
 /**
  * Created by Kyle on 8/31/2014.
  */
 public class BactaBuffer {
-
+/*
     private final ByteBuffer buffer;
     private static final Charset UTF_16LE = Charset.forName("UTF-16LE");
     private static final Charset ISO_8859_1 = Charset.forName("ISO-8859-1");
@@ -184,67 +172,46 @@ public class BactaBuffer {
        return buffer.clear();
     }
 
-    @Override
     public boolean getBoolean(int index) {
-        return buffer.getBoolean(index);
+        return buffer.get(index) == 1;
     }
 
-    @Override
     public byte getByte(int index) {
-        return buffer.getByte(index);
+        return buffer.get(index);
     }
 
-    @Override
     public short getUnsignedByte(int index) {
-        return buffer.getUnsignedByte(index);
+        return UnsignedUtil.getUnsignedByte(buffer, index);
     }
 
-    @Override
     public short getShort(int index) {
         return buffer.getShort(index);
     }
 
-    @Override
     public int getUnsignedShort(int index) {
-        return buffer.getUnsignedShort(index);
+        return UnsignedUtil.getUnsignedShort(buffer, index);
     }
 
-    @Override
-    public int getMedium(int index) {
-        return buffer.getMedium(index);
-    }
-
-    @Override
-    public int getUnsignedMedium(int index) {
-        return buffer.getUnsignedMedium(index);
-    }
-
-    @Override
     public int getInt(int index) {
         return buffer.getInt(index);
     }
 
-    @Override
     public long getUnsignedInt(int index) {
-        return buffer.getUnsignedInt(index);
+        return UnsignedUtil.getUnsignedInt(buffer, index);
     }
 
-    @Override
     public long getLong(int index) {
         return buffer.getLong(index);
     }
 
-    @Override
     public char getChar(int index) {
         return buffer.getChar(index);
     }
 
-    @Override
     public float getFloat(int index) {
         return buffer.getFloat(index);
     }
 
-    @Override
     public double getDouble(int index) {
         return buffer.getDouble(index);
     }
@@ -608,4 +575,5 @@ public class BactaBuffer {
     public String toString() {
         return buffer.toString();
     }
+    */
 }
