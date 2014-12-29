@@ -9,6 +9,12 @@ public interface Account extends Serializable {
 	void setUsername(String username);
 	String getUsername();
 
-	void setPassword(String string);
+	void setPassword(String password);
 	String getPassword();
+
+    void setAuthToken(String token);
+    String getAuthToken();
+
+    void setAuthExpiration(long expiration);
+    long getAuthExpiration();
 }

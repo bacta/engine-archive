@@ -22,9 +22,9 @@ public interface DatabaseConnector {
 
     <T> void updateAdminObject(String key, T object);
 
-    <T> T getAdminObject(Class<T> clazz, String key);
+    <T> T getAdminObject(String key, Class<T> clazz);
 
-    <T extends Account> T lookupSession(Class<T> accountClass, String authToken);
+    <T extends Account> T lookupSession(String authToken, Class<T> clazz);
 
     public Set<String> getClusterCharacterSet(int clusterId);
 
