@@ -4,6 +4,7 @@ package com.ocdsoft.bacta.engine.buffer;
  * Created by Kyle on 8/31/2014.
  */
 public class BactaBuffer {
+
 /*
     private final ByteBuffer buffer;
     private static final Charset UTF_16LE = Charset.forName("UTF-16LE");

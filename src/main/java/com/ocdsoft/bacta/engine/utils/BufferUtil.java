@@ -1,6 +1,6 @@
 package com.ocdsoft.bacta.engine.utils;
 
-import io.netty.buffer.ByteBuf;
+import java.nio.ByteBuffer;
 
 @SuppressWarnings("unused")
 public class BufferUtil {
@@ -25,13 +25,15 @@ public class BufferUtil {
 		return bytesToHex(bytes, ' ');
 	}
 	
-	public static String bytesToHex(ByteBuf buffer, char seperator) {
+	public static String bytesToHex(ByteBuffer buffer, char seperator) {
 	    final char[] hexArray = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 	    int length = seperator != 0 ? 3 : 2;
-	    char[] hexChars = new char[(buffer.writerIndex() * length)];
+
+        int bufferSize = buffer.capacity();
+	    char[] hexChars = new char[(bufferSize * length)];
 	    int v;
-	    for ( int j = 0; j < buffer.writerIndex(); j++ ) {
-	        v = buffer.getByte(j) & 0xFF;
+	    for ( int j = 0; j < bufferSize; j++ ) {
+	        v = buffer.get(j) & 0xFF;
 	        hexChars[j * length] = hexArray[v >>> 4];
 	        hexChars[j * length + 1] = hexArray[v & 0x0F];
 	        
@@ -59,7 +61,7 @@ public class BufferUtil {
 	    return buffer.toString();
 	}
 	
-	public static String bytesToHex(ByteBuf buffer) {
+	public static String bytesToHex(ByteBuffer buffer) {
 		return bytesToHex(buffer, ' ');
 	}
 	
@@ -75,4 +77,8 @@ public class BufferUtil {
 	    }
 	    return new String(hexChars);
 	}
+
+    public static void putBoolean(ByteBuffer buffer, boolean value) {
+        buffer.put(value ? (byte) 1 : 0);
+    }
 }
