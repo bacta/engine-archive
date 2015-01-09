@@ -1,6 +1,6 @@
 package com.ocdsoft.bacta.engine.network.io.udp;
 
-import com.ocdsoft.bacta.engine.network.client.UdpClient;
+import com.ocdsoft.bacta.engine.network.client.UdpConnection;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.DatagramPacket;
@@ -17,7 +17,7 @@ import java.nio.ByteBuffer;
  * @since 1.0
  *
   */
-public abstract class UdpTransceiver<Client extends UdpClient> implements UdpReceiver<InetSocketAddress, ByteBuffer>, UdpEmitter<Client, ByteBuffer>, Runnable {
+public abstract class UdpTransceiver<Connection extends UdpConnection> implements UdpReceiver<InetSocketAddress, ByteBuffer>, UdpEmitter<Connection, ByteBuffer>, Runnable {
 
     /**
      * Udp Server to receive messages
