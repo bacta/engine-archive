@@ -22,29 +22,6 @@ public class BactaBuffer {
         return new BactaBuffer(ByteBuffer.wrap(buffer));
     }
 
-    public void writeUnicode(String value) {
-        buffer.putInt(value.length());
-        buffer.put(value.getBytes(UTF_16LE));
-    }
-
-    public String readUnicode() {
-        int length = buffer.getInt();
-        byte[] bytes = new byte[length * 2];
-        buffer.get(bytes);
-        return new String(bytes, UTF_16LE);
-    }
-
-    public void writeAscii(String value) {
-        buffer.putShort((short)value.length());
-        buffer.put(value.getBytes(ISO_8859_1));
-    }
-
-    public String readAscii() {
-        short length = buffer.getShort();
-        byte[] bytes = new byte[length];
-        buffer.get(bytes);
-        return new String(bytes, ISO_8859_1);
-    }
 
     public void putShortBE(short value) {
 

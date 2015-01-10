@@ -1,11 +1,15 @@
 package com.ocdsoft.bacta.engine.utils;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 
 @SuppressWarnings("unused")
 public class BufferUtil {
 
-	public static String bytesToHex(byte[] bytes, char seperator) {
+    private static final Charset UTF_16LE = Charset.forName("UTF-16LE");
+    private static final Charset ISO_8859_1 = Charset.forName("ISO-8859-1");
+
+    public static String bytesToHex(byte[] bytes, char seperator) {
 	    final char[] hexArray = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 	    int length = seperator != 0 ? 3 : 2;
 	    char[] hexChars = new char[(bytes.length * length)];
@@ -80,5 +84,29 @@ public class BufferUtil {
 
     public static void putBoolean(ByteBuffer buffer, boolean value) {
         buffer.put(value ? (byte) 1 : 0);
+    }
+
+    public static String getAscii(ByteBuffer buffer) {
+        short length = buffer.getShort();
+        byte[] bytes = new byte[length];
+        buffer.get(bytes);
+        return new String(bytes, ISO_8859_1);
+    }
+
+    public static void putAscii(ByteBuffer buffer, String value) {
+        buffer.putShort((short)value.length());
+        buffer.put(value.getBytes(ISO_8859_1));
+    }
+
+    public static void putUnicode(ByteBuffer buffer, String value) {
+        buffer.putInt(value.length());
+        buffer.put(value.getBytes(UTF_16LE));
+    }
+
+    public String getUnicode(ByteBuffer buffer) {
+        int length = buffer.getInt();
+        byte[] bytes = new byte[length * 2];
+        buffer.get(bytes);
+        return new String(bytes, UTF_16LE);
     }
 }
