@@ -53,7 +53,7 @@ public abstract class UdpTransceiver<Connection extends UdpConnection> implement
         udpServer.run();
     }
 
-    protected final void handleIncoming(DatagramPacket datagramPacket) {
+    protected void handleIncoming(DatagramPacket datagramPacket) {
 
         /// The data comes in as a direct buffer, and we need to
         /// bring it into java space for array access

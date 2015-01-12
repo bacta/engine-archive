@@ -9,6 +9,6 @@ public abstract class UdpConnection {
 
 	@Getter @Setter protected InetSocketAddress remoteAddress;
 
-    public abstract void setConnectionState(ConnectionState state);
-    public abstract ConnectionState getConnectionState();
+    public abstract void setState(ConnectionState state);
+    public abstract ConnectionState getState();
 }

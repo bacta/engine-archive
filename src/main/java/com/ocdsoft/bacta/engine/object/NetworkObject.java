@@ -7,7 +7,7 @@ import lombok.Setter;
  * Created by kburkhardt on 2/23/14.
  */
 
-public abstract class NetworkObject<T extends NetworkObject> implements Comparable<NetworkObject> {
+public abstract class NetworkObject implements Comparable<NetworkObject> {
 
     @Getter @Setter
     protected long networkId;
