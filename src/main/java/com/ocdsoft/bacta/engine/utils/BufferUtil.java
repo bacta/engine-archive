@@ -109,4 +109,14 @@ public class BufferUtil {
         buffer.get(bytes);
         return new String(bytes, UTF_16LE);
     }
+
+    public String getNullTerminatedString(ByteBuffer buffer) {
+        final StringBuilder builder = new StringBuilder();
+
+        byte b = 0;
+        while ((b = buffer.get()) != 0)
+            builder.append((char) b);
+
+        return builder.toString();
+    }
 }
