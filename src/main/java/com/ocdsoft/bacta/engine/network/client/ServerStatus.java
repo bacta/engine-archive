@@ -2,7 +2,6 @@ package com.ocdsoft.bacta.engine.network.client;
 
 import com.ocdsoft.bacta.engine.buffer.ByteBufferSerializable;
 import lombok.Getter;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.nio.ByteBuffer;
 
@@ -26,7 +25,4 @@ public enum ServerStatus implements ByteBufferSerializable {
     public void writeToBuffer(ByteBuffer buffer) {
         buffer.putInt(value);
     }
-
-    @Override
-    public void readFromBuffer(ByteBuffer buffer) { throw new NotImplementedException(); }
 }

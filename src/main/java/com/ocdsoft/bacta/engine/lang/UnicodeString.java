@@ -25,14 +25,12 @@ public final class UnicodeString implements ByteBufferSerializable {
         this.string = new String(buffer);
     }
 
+    public UnicodeString(ByteBuffer buffer) {
+        this.string = BufferUtil.getUnicode(buffer);
+    }
+
     @Override
     public void writeToBuffer(ByteBuffer buffer) {
         BufferUtil.putUnicode(buffer, string);
     }
-
-    @Override
-    public void readFromBuffer(ByteBuffer buffer) {
-        string = BufferUtil.getUnicode(buffer);
-    }
-
 }
