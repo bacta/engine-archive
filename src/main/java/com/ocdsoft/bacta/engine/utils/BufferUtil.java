@@ -103,10 +103,22 @@ public class BufferUtil {
         buffer.put(value.getBytes(UTF_16LE));
     }
 
-    public String getUnicode(ByteBuffer buffer) {
+    public static String getUnicode(ByteBuffer buffer) {
         int length = buffer.getInt();
         byte[] bytes = new byte[length * 2];
         buffer.get(bytes);
         return new String(bytes, UTF_16LE);
+    }
+
+    public static void putBinaryString(ByteBuffer buffer, String value) {
+        buffer.putInt(value.length());
+        buffer.put(value.getBytes(ISO_8859_1));
+    }
+
+    public static String getBinaryString(ByteBuffer buffer) {
+        int size = buffer.getInt();
+        byte[] bytes = new byte[size];
+        buffer.get(bytes);
+        return new String(bytes);
     }
 }

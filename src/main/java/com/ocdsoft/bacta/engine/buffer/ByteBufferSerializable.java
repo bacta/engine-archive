@@ -16,4 +16,10 @@ public interface ByteBufferSerializable extends Serializable {
      * @param buffer The message to which this object will be written.
      */
     void writeToBuffer(ByteBuffer buffer);
+
+    /**
+     * Reads the object data from the provided buffer
+     * @param buffer The message to which this object will be read from.
+     */
+    void readFromBuffer(ByteBuffer buffer);
 }

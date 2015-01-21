@@ -1,23 +1,32 @@
 package com.ocdsoft.bacta.engine.network.client;
 
+import com.ocdsoft.bacta.engine.buffer.ByteBufferSerializable;
 import lombok.Getter;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public enum ServerStatus {
-	OFFLINE (0, "Offline"),
-    LOADING (1, "Loading"),
-    ONLINE (2, "Online"),
-    LOCKED(3, "Locked"),
-    RESTRICTED(4, "Restricted"),
-    FULL(4, "Full");
+import java.nio.ByteBuffer;
+
+public enum ServerStatus implements ByteBufferSerializable {
+
+	DOWN (0),
+    LOADING (1),
+    UP (2),
+    LOCKED(3),
+    RESTRICTED(4),
+    FULL(5);
 
     @Getter
     private int value;
 
-    @Getter
-    private String name;
-
-    ServerStatus(int value, String name) {
+    ServerStatus(int value) {
         this.value = value;
-        this.name = name;
     }
+
+    @Override
+    public void writeToBuffer(ByteBuffer buffer) {
+        buffer.putInt(value);
+    }
+
+    @Override
+    public void readFromBuffer(ByteBuffer buffer) { throw new NotImplementedException(); }
 }

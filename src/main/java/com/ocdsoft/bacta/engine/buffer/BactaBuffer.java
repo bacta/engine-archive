@@ -79,7 +79,7 @@ public class BactaBuffer {
 
     public void writeBinaryString(String value) {
         writeInt(value.length());
-        put(value.getBytes(CharsetUtil.ISO_8859_1));
+            put(value.getBytes(CharsetUtil.ISO_8859_1));
     }
 
     public String readBinaryString() {
