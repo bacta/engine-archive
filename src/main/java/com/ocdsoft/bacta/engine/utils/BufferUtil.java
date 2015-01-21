@@ -103,7 +103,7 @@ public class BufferUtil {
         buffer.put(value.getBytes(UTF_16LE));
     }
 
-    public String getUnicode(ByteBuffer buffer) {
+    public static String getUnicode(ByteBuffer buffer) {
         int length = buffer.getInt();
         byte[] bytes = new byte[length * 2];
         buffer.get(bytes);
