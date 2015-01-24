@@ -3,6 +3,7 @@ package com.ocdsoft.bacta.engine.conf.ini;
 import com.google.inject.Singleton;
 import com.ocdsoft.bacta.engine.conf.BactaConfiguration;
 
+import java.io.File;
 import java.util.Collection;
 
 /**
@@ -13,12 +14,12 @@ public class IniBactaConfiguration implements BactaConfiguration {
     private final IniFile iniFile;
 
     public IniBactaConfiguration() {
-        iniFile = new IniFile("../conf/config.ini");
-    }
-
-    public static void main(String[] args) {
-        BactaConfiguration configuration = new IniBactaConfiguration();
-        System.out.println(configuration.getString("Bacta/SharedFiles", "Path"));
+        File file = new File("../conf/config.ini");
+        if(file.exists()) {
+            iniFile = new IniFile(file.getPath());
+        } else {
+            iniFile = new IniFile(getClass().getResource("/config.ini").getPath());
+        }
     }
 
     @Override

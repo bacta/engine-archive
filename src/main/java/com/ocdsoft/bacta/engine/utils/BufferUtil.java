@@ -82,6 +82,10 @@ public class BufferUtil {
 	    return new String(hexChars);
 	}
 
+    public static boolean getBoolean(ByteBuffer buffer) {
+        return buffer.get() == 1 ? true : false;
+    }
+
     public static void putBoolean(ByteBuffer buffer, boolean value) {
         buffer.put(value ? (byte) 1 : 0);
     }
