@@ -1,11 +1,11 @@
 package com.ocdsoft.bacta.engine.network.client;
 
-import com.ocdsoft.bacta.engine.buffer.ByteBufferSerializable;
+import com.ocdsoft.bacta.engine.buffer.ByteBufferWritable;
 import lombok.Getter;
 
 import java.nio.ByteBuffer;
 
-public enum ServerStatus implements ByteBufferSerializable {
+public enum ServerStatus implements ByteBufferWritable {
 
 	DOWN (0),
     LOADING (1),

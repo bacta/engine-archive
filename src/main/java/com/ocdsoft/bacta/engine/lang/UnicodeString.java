@@ -1,12 +1,12 @@
 package com.ocdsoft.bacta.engine.lang;
 
-import com.ocdsoft.bacta.engine.buffer.ByteBufferSerializable;
+import com.ocdsoft.bacta.engine.buffer.ByteBufferWritable;
 import com.ocdsoft.bacta.engine.utils.BufferUtil;
 import lombok.Getter;
 
 import java.nio.ByteBuffer;
 
-public final class UnicodeString implements ByteBufferSerializable {
+public final class UnicodeString implements ByteBufferWritable {
 
     public static final UnicodeString EMPTY = new UnicodeString("");
 
