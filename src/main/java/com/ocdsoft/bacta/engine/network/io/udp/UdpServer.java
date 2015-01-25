@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.net.InetAddress;
 
 public final class UdpServer implements Runnable {
-	protected Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
+	private static final Logger logger = LoggerFactory.getLogger(UdpServer.class);
 	
 	private Bootstrap b = null;
 	private ChannelInboundHandlerAdapter[] handlers;
