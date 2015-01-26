@@ -67,7 +67,8 @@ public abstract class UdpTransceiver<Connection extends UdpConnection> implement
     }
 
     protected final void handleOutgoing(ByteBuffer buffer, InetSocketAddress address) {
-        ctx.writeAndFlush(new DatagramPacket(Unpooled.wrappedBuffer(buffer), address));
+        DatagramPacket datagramPacket = new DatagramPacket(Unpooled.wrappedBuffer(buffer), address);
+        ctx.writeAndFlush(datagramPacket);
     }
 
 }

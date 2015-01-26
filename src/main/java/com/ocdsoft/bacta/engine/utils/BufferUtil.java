@@ -33,7 +33,7 @@ public class BufferUtil {
 	    final char[] hexArray = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 	    int length = seperator != 0 ? 3 : 2;
 
-        int bufferSize = buffer.capacity();
+        int bufferSize = buffer.limit();
 	    char[] hexChars = new char[(bufferSize * length)];
 	    int v;
 	    for ( int j = 0; j < bufferSize; j++ ) {
