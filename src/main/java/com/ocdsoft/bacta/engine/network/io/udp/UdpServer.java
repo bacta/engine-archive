@@ -71,12 +71,13 @@ public final class UdpServer implements Runnable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			stop();
-		}
+            if (b != null) {
+                b.group().shutdownGracefully();
+            }
+        }
     }
 
 	public void stop()  {
-		if (b != null)
-			b.group().shutdownGracefully();
+
 	}
 }

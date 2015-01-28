@@ -24,6 +24,8 @@ public abstract class UdpTransceiver<Connection extends UdpConnection> implement
      */
     private final UdpServer udpServer;
 
+    private Thread udpServerThread;
+
     /**
      * Channel Context reference
      */
@@ -42,6 +44,7 @@ public abstract class UdpTransceiver<Connection extends UdpConnection> implement
 
             udpServer = new UdpServer(bindAddress, port, new UdpHandler(this));
 
+
         } catch (SecurityException e) {
 
 			throw new RuntimeException("Unable to start udp server", e);
@@ -50,6 +53,7 @@ public abstract class UdpTransceiver<Connection extends UdpConnection> implement
 
     @Override
     public final void run() {
+        udpServerThread = Thread.currentThread();
         udpServer.run();
     }
 
@@ -71,4 +75,7 @@ public abstract class UdpTransceiver<Connection extends UdpConnection> implement
         ctx.writeAndFlush(datagramPacket);
     }
 
+    public void stop() {
+        udpServerThread.interrupt();
+    }
 }
