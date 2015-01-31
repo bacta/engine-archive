@@ -19,7 +19,7 @@ public interface ConnectionDatabaseConnector {
 
     public Set<String> getClusterCharacterSet(int clusterId);
 
-    long nextClusterId();
+    int nextClusterId();
 
     int nextAccountId();
 }
