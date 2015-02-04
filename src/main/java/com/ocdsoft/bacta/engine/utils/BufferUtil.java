@@ -1,5 +1,7 @@
 package com.ocdsoft.bacta.engine.utils;
 
+import javax.vecmath.Quat4f;
+import javax.vecmath.Vector3f;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
@@ -134,5 +136,35 @@ public class BufferUtil {
             builder.append((char) b);
 
         return builder.toString();
+    }
+
+    public static Vector3f getVector3f(ByteBuffer buffer) {
+        float px = buffer.getFloat();
+        float pz = buffer.getFloat();
+        float py = buffer.getFloat();
+        
+        return new Vector3f(px, pz, py);
+    }
+    
+    public static void putVector3f(ByteBuffer buffer, Vector3f vector) {
+        buffer.putFloat(vector.x);
+        buffer.putFloat(vector.z);
+        buffer.putFloat(vector.y);
+    }
+
+    public static Quat4f getQuat4f(ByteBuffer buffer) {
+        float rx = buffer.getFloat();
+        float ry = buffer.getFloat();
+        float rz = buffer.getFloat();
+        float rw = buffer.getFloat();
+
+        return new Quat4f(rx, ry, rz, rw);
+    }
+
+    public static void putQuat4f(ByteBuffer buffer, Quat4f quaternion) {
+        buffer.putFloat(quaternion.x); // X Direction
+        buffer.putFloat(quaternion.y); // Y Direction
+        buffer.putFloat(quaternion.z); // Z Direction
+        buffer.putFloat(quaternion.w); // W Direction
     }
 }

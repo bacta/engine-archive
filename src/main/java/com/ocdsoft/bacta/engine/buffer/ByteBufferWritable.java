@@ -13,5 +13,5 @@ public interface ByteBufferWritable extends Serializable {
      *
      * @param buffer The message to which this object will be written.
      */
-    void writeToBuffer(ByteBuffer buffer);
+    void writeToBuffer(final ByteBuffer buffer);
 }
