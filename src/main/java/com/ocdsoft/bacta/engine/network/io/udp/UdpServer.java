@@ -50,19 +50,26 @@ public final class UdpServer implements Runnable {
 	        b.option(ChannelOption.SO_RCVBUF, 768)
 				.option(ChannelOption.SO_SNDBUF, 768)
 				.option(ChannelOption.SO_BROADCAST, true)
+                
                 //.option(ChannelOption.ALLOCATOR, Unpooled.DEFAULT)
-				.handler(new ChannelInitializer<NioDatagramChannel>() {
+                    .handler(new ChannelInitializer<NioDatagramChannel>() {
 
-                    @Override
-                    protected void initChannel(NioDatagramChannel ch)
-                            throws Exception {
+                        @Override
+                        protected void initChannel(NioDatagramChannel ch)
+                                throws Exception {
 
-                        ch.pipeline().addLast(handlers);
-                    }
+                            ch.pipeline().addLast(handlers);
+                        }
 
-                });
+                    });
+            
+            if(port != 0) {
+                b.localAddress(bindAddress, port);
+            } else {
+                b.localAddress(0);
+            }
 
-			Channel channel = b.bind(bindAddress, port).sync().channel();
+			Channel channel = b.bind().sync().channel();
 					
 			logger.debug("Running on port: " + port);
 
