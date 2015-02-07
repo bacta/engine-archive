@@ -52,7 +52,7 @@ public abstract class UdpTransceiver<Connection extends UdpConnection> implement
 	}
 
     @Override
-    public final void run() {
+    public void run() {
         udpServerThread = Thread.currentThread();
         udpServer.run();
     }
