@@ -1,5 +1,7 @@
 package com.ocdsoft.bacta.engine.utils;
 
+import org.magnos.steer.vec.Vec3;
+
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 import java.nio.ByteBuffer;
@@ -138,15 +140,15 @@ public class BufferUtil {
         return builder.toString();
     }
 
-    public static Vector3f getVector3f(ByteBuffer buffer) {
+    public static Vec3 getVec3(ByteBuffer buffer) {
         float px = buffer.getFloat();
         float pz = buffer.getFloat();
         float py = buffer.getFloat();
         
-        return new Vector3f(px, pz, py);
+        return new Vec3(px, pz, py);
     }
     
-    public static void putVector3f(ByteBuffer buffer, Vector3f vector) {
+    public static void putVec3(ByteBuffer buffer, Vec3 vector) {
         buffer.putFloat(vector.x);
         buffer.putFloat(vector.z);
         buffer.putFloat(vector.y);
