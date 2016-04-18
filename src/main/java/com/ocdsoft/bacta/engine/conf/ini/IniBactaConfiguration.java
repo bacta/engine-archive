@@ -18,7 +18,12 @@ public class IniBactaConfiguration implements BactaConfiguration {
         if(file.exists()) {
             iniFile = new IniFile(file.getPath());
         } else {
-            iniFile = new IniFile(getClass().getResource("/config.ini").getPath());
+            file = new File("conf/config.ini");
+            if(file.exists()) {
+                iniFile = new IniFile(file.getPath());
+            } else {
+                iniFile = new IniFile(getClass().getResource("/config.ini").getPath());
+            }
         }
     }
 
