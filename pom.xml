@@ -112,22 +112,6 @@
                     </gitDescribe>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.10</version>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals><goal>add-source</goal></goals>
-                        <configuration>
-                            <sources>
-                                <source>../Steerio/Java/src</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -223,7 +207,7 @@
             <artifactId>steerio</artifactId>
             <version>1.0.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/../Steerio/Java/build/steerio-1.0.0.jar</systemPath>
+            <systemPath>${project.basedir}/lib/steerio-1.0.0.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
