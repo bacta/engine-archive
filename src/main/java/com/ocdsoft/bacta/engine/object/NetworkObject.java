@@ -8,6 +8,7 @@ import lombok.Setter;
  */
 
 public abstract class NetworkObject implements Comparable<NetworkObject> {
+    public static final long INVALID = 0;
 
     @Getter @Setter
     protected long networkId;
