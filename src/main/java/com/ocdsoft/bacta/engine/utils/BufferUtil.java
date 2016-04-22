@@ -3,7 +3,6 @@ package com.ocdsoft.bacta.engine.utils;
 import org.magnos.steer.vec.Vec3;
 
 import javax.vecmath.Quat4f;
-import javax.vecmath.Vector3f;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
@@ -130,7 +129,7 @@ public class BufferUtil {
         return new String(bytes);
     }
 
-    public String getNullTerminatedString(ByteBuffer buffer) {
+    public static String getNullTerminatedString(ByteBuffer buffer) {
         final StringBuilder builder = new StringBuilder();
 
         byte b = 0;
