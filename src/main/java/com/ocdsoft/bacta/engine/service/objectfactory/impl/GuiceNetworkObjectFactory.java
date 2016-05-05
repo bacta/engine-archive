@@ -18,7 +18,7 @@ public class GuiceNetworkObjectFactory implements NetworkObjectFactory {
     private final NetworkIdGenerator idGenerator;
 
     @Inject
-    public GuiceNetworkObjectFactory(Injector injector, NetworkIdGenerator idGenerator, GameDatabaseConnector dbConnector) {
+    public GuiceNetworkObjectFactory(Injector injector, NetworkIdGenerator idGenerator) {
         this.injector = injector;
         this.idGenerator = idGenerator;
     }

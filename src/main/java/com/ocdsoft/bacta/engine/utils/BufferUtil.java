@@ -143,10 +143,10 @@ public class BufferUtil {
         float px = buffer.getFloat();
         float pz = buffer.getFloat();
         float py = buffer.getFloat();
-        
+
         return new Vec3(px, pz, py);
     }
-    
+
     public static void putVec3(ByteBuffer buffer, Vec3 vector) {
         buffer.putFloat(vector.x);
         buffer.putFloat(vector.z);
