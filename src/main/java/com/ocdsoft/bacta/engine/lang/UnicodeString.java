@@ -29,6 +29,10 @@ public final class UnicodeString implements ByteBufferWritable {
         this.string = BufferUtil.getUnicode(buffer);
     }
 
+    public boolean isEmpty() {
+        return string.isEmpty();
+    }
+
     @Override
     public void writeToBuffer(ByteBuffer buffer) {
         BufferUtil.putUnicode(buffer, string);
