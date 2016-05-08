@@ -1,5 +1,7 @@
 package com.ocdsoft.bacta.engine.utils;
 
+import com.ocdsoft.bacta.engine.buffer.ByteBufferWritable;
+import com.ocdsoft.bacta.engine.lang.UnicodeString;
 import org.magnos.steer.vec.Vec3;
 
 import javax.vecmath.Quat4f;
@@ -167,5 +169,41 @@ public class BufferUtil {
         buffer.putFloat(quaternion.y); // Y Direction
         buffer.putFloat(quaternion.z); // Z Direction
         buffer.putFloat(quaternion.w); // W Direction
+    }
+
+    public static void put(ByteBuffer buffer, boolean value) {
+        buffer.put(value ? (byte) 1 : (byte) 0);
+    }
+
+    public static void put(ByteBuffer buffer, byte value) {
+        buffer.put(value);
+    }
+
+    public static void put(ByteBuffer buffer, short value) {
+        buffer.putShort(value);
+    }
+
+    public static void put(ByteBuffer buffer, int value) {
+        buffer.putInt(value);
+    }
+
+    public static void put(ByteBuffer buffer, long value) {
+        buffer.putLong(value);
+    }
+
+    public static void put(ByteBuffer buffer, float value) {
+        buffer.putFloat(value);
+    }
+
+    public static void put(ByteBuffer buffer, String value) {
+        putAscii(buffer, value);
+    }
+
+    public static void put(ByteBuffer buffer, UnicodeString value) {
+        putUnicode(buffer, value.getString());
+    }
+
+    public static void put(ByteBuffer buffer, ByteBufferWritable value) {
+        value.writeToBuffer(buffer);
     }
 }
