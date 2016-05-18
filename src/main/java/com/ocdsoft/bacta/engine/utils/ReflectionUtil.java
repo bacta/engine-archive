@@ -8,17 +8,26 @@ import java.lang.reflect.Field;
  * Some helper utilities for dealing with reflection.
  */
 public class ReflectionUtil {
+    public static <T> Field getFieldOrNull(final Class<T> classType, final String fieldName) {
+        return getFieldOrNull(classType, fieldName, true);
+    }
     /**
      * Gets the field, or returns null. Basically just hides the exception handling requirements.
      *
      * @param classType The class that is being reflected.
      * @param fieldName The name of the field to get.
+     * @param accessible Should the field be explicitly set as accessible.
      * @param <T>       The type of the class.
      * @return A reference to the Field, or null if it doesn't exist.
      */
-    public static <T> Field getFieldOrNull(final Class<T> classType, final String fieldName) {
+    public static <T> Field getFieldOrNull(final Class<T> classType, final String fieldName, final boolean accessible) {
         try {
-            return classType.getField(fieldName);
+            final Field field = classType.getField(fieldName);
+
+            if (accessible)
+                field.setAccessible(true);
+
+            return field;
         } catch (final Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);
