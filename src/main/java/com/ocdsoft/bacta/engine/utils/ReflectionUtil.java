@@ -22,7 +22,7 @@ public class ReflectionUtil {
      */
     public static <T> Field getFieldOrNull(final Class<T> classType, final String fieldName, final boolean accessible) {
         try {
-            final Field field = classType.getField(fieldName);
+            final Field field = classType.getDeclaredField(fieldName);
 
             if (accessible)
                 field.setAccessible(true);

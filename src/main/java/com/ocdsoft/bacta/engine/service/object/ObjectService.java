@@ -6,7 +6,7 @@ package com.ocdsoft.bacta.engine.service.object;
 
 public interface ObjectService<C> {
 
-    <T extends C> T createObject(String templatePath, C creator);
+    <T extends C> T createObject(String templatePath, C parent);
 
     <T extends C> T createObject(String templatePath);
 
