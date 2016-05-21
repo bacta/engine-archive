@@ -5,7 +5,7 @@ import com.ocdsoft.bacta.engine.object.NetworkObject;
 /**
  * Created by kburkhardt on 2/23/14.
  */
-public interface NetworkObjectFactory {
+public interface NetworkObjectFactory<Template> {
 
-    <T extends NetworkObject> T createNetworkObject(Class<T> clazz);
+    <T extends NetworkObject> T createNetworkObject(Class<T> clazz, Template template);
 }

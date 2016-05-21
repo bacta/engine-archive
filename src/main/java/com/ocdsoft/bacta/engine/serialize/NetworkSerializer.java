@@ -1,4 +1,4 @@
-package com.ocdsoft.bacta.engine.serialization;
+package com.ocdsoft.bacta.engine.serialize;
 
 /**
  * Created by kburkhardt on 7/26/14.

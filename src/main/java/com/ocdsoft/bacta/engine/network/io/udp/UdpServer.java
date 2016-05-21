@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.net.InetAddress;
 
 public final class UdpServer implements Runnable {
-	private static final Logger logger = LoggerFactory.getLogger(UdpServer.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UdpServer.class);
 	
 	private Bootstrap b = null;
 	private ChannelInboundHandlerAdapter[] handlers;
@@ -45,7 +45,7 @@ public final class UdpServer implements Runnable {
                 b.channel(NioDatagramChannel.class);
             }
 
-            logger.debug("Starting on port: " + port);
+            LOGGER.debug("Starting on port: {}", port);
 
 	        b.option(ChannelOption.SO_RCVBUF, 768)
 				.option(ChannelOption.SO_SNDBUF, 768)
@@ -71,7 +71,7 @@ public final class UdpServer implements Runnable {
 
 			Channel channel = b.bind().sync().channel();
 					
-			logger.debug("Running on port: " + port);
+			LOGGER.debug("Running on port: {}", port);
 
 			channel.closeFuture().await();
 			
