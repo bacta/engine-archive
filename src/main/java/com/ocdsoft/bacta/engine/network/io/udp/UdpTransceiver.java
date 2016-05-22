@@ -46,7 +46,7 @@ public abstract class UdpTransceiver<Connection> implements UdpReceiver<InetSock
 
         } catch (SecurityException e) {
 
-			throw new RuntimeException("Unable to start udp server", e);
+			throw new RuntimeException("Unable to start server server", e);
 		}
 	}
 
