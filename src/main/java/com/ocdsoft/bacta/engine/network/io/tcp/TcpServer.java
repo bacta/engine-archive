@@ -1,60 +1,67 @@
 package com.ocdsoft.bacta.engine.network.io.tcp;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.timeout.IdleState;
-import io.netty.handler.timeout.IdleStateEvent;
-import io.netty.handler.timeout.IdleStateHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Observable;
 
-public abstract class TcpServer {
+public final class TcpServer extends Observable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TcpServer.class);
-	private ChannelInboundHandlerAdapter handler;
+    private final ChannelInboundHandlerAdapter handler;
 
-	private EventLoopGroup bossGroup = new NioEventLoopGroup();
-	private EventLoopGroup workerGroup = new NioEventLoopGroup();
-	private ServerBootstrap bootstrap = new ServerBootstrap();
+	private final EventLoopGroup bossGroup;
+	private final EventLoopGroup workerGroup;
+	private final ServerBootstrap bootstrap;
 	
 	private int port;
 
 	public TcpServer(ChannelInboundHandlerAdapter handler, int port) {
 		this.port = port;
 		this.handler = handler;
+        bossGroup = new NioEventLoopGroup();
+        workerGroup = new NioEventLoopGroup();
+        bootstrap = new ServerBootstrap();
 	}
 	
     public final void start() {
 
         LOGGER.info("Starting TCP Server on port {}", port);
 
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    bootstrap.group(bossGroup, workerGroup)
-                            .channel(NioServerSocketChannel.class)
-                            .option(ChannelOption.SO_BACKLOG, 100)
-                            .option(ChannelOption.TCP_NODELAY, true)
-                            .childHandler(handler)
-                            .childOption(ChannelOption.SO_KEEPALIVE, true);
+        new Thread(() -> {
+            try {
+                bootstrap.group(bossGroup, workerGroup)
+                        .channel(NioServerSocketChannel.class)
+                        .option(ChannelOption.SO_BACKLOG, 100)
+                        .option(ChannelOption.TCP_NODELAY, true)
+                        .childHandler(handler)
+                        .childOption(ChannelOption.SO_KEEPALIVE, true);
 
 
-                    LOGGER.info("TCP Server Running on port {}", port);
+                LOGGER.info("TCP Server Running on port {}", port);
 
-                    ChannelFuture f = bootstrap.bind(port).sync();
-                    f.channel().closeFuture().sync();
+                ChannelFuture f = bootstrap.bind(port).sync();
 
-                } catch (InterruptedException e) {
-                    LOGGER.error(e.getMessage());
-                } finally {
-                    stop();
-                }
+                update();
+                notifyObservers(TcpServer.Status.CONNECTED);
+
+                f.channel().closeFuture().sync();
+
+            } catch (InterruptedException e) {
+                LOGGER.error(e.getMessage());
+            } finally {
+                stop();
             }
+
+            update();
+            notifyObservers(TcpServer.Status.DISCONNECTED);
+
         }).start();
     }
 
@@ -62,4 +69,16 @@ public abstract class TcpServer {
 		bossGroup.shutdownGracefully();
 		workerGroup.shutdownGracefully();
 	}
+
+    public boolean isConnected() {
+        return !workerGroup.isShutdown();
+    }
+
+    private void update() {
+        setChanged();
+    }
+
+    public static enum Status {
+        CONNECTED,DISCONNECTED
+    }
 }

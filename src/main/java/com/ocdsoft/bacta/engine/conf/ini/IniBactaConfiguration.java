@@ -4,6 +4,8 @@ import com.google.inject.Singleton;
 import com.ocdsoft.bacta.engine.conf.BactaConfiguration;
 
 import java.io.File;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.Collection;
 
 /**
@@ -13,18 +15,9 @@ import java.util.Collection;
 public class IniBactaConfiguration implements BactaConfiguration {
     private final IniFile iniFile;
 
-    public IniBactaConfiguration() {
-        File file = new File("../conf/config.ini");
-        if(file.exists()) {
-            iniFile = new IniFile(file.getPath());
-        } else {
-            file = new File("conf/config.ini");
-            if(file.exists()) {
-                iniFile = new IniFile(file.getPath());
-            } else {
-                iniFile = new IniFile(getClass().getResource("/config.ini").getPath());
-            }
-        }
+    public IniBactaConfiguration() throws URISyntaxException {
+        File file = new File(IniBactaConfiguration.class.getResource("/conf/config.ini").toURI());
+        iniFile = new IniFile(file.getPath());
     }
 
     @Override

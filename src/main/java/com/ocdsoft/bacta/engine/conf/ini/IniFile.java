@@ -3,6 +3,8 @@ package com.ocdsoft.bacta.engine.conf.ini;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,7 +31,7 @@ public class IniFile implements IniReader {
 
     @Override
     public String getString(String sectionName, String propertyName) {
-        return getString(sectionName, propertyName, 0);
+        return getStringLast(sectionName, propertyName);
     }
 
     @Override
@@ -44,7 +46,7 @@ public class IniFile implements IniReader {
 
     @Override
     public String getStringWithDefault(String sectionName, String propertyName, String defaultValue) {
-        return getStringWithDefault(sectionName, propertyName, defaultValue, 0);
+        return getStringLastWithDefault(sectionName, propertyName, defaultValue);
     }
 
     @Override
@@ -86,15 +88,16 @@ public class IniFile implements IniReader {
 
         LinkedList<String> list = section.properties.get(propertyName);
 
-        if (list == null)
+        if (list == null) {
             return null;
+        }
 
         return Collections.unmodifiableCollection(list);
     }
 
     @Override
     public boolean getBoolean(String sectionName, String propertyName) {
-        return getBoolean(sectionName, propertyName, 0);
+        return getBooleanLast(sectionName, propertyName);
     }
 
     @Override
@@ -109,7 +112,7 @@ public class IniFile implements IniReader {
 
     @Override
     public boolean getBooleanWithDefault(String sectionName, String propertyName, boolean defaultValue) {
-        return getBooleanWithDefault(sectionName, propertyName, defaultValue, 0);
+        return getBooleanLastWithDefault(sectionName, propertyName, defaultValue);
     }
 
     @Override
@@ -164,7 +167,7 @@ public class IniFile implements IniReader {
 
     @Override
     public byte getByte(String sectionName, String propertyName) {
-        return getByte(sectionName, propertyName, 0);
+        return getByteLast(sectionName, propertyName);
     }
 
     @Override
@@ -179,7 +182,7 @@ public class IniFile implements IniReader {
 
     @Override
     public byte getByteWithDefault(String sectionName, String propertyName, byte defaultValue) {
-        return getByteWithDefault(sectionName, propertyName, defaultValue, 0);
+        return getByteLastWithDefault(sectionName, propertyName, defaultValue);
     }
 
     @Override
@@ -234,7 +237,7 @@ public class IniFile implements IniReader {
 
     @Override
     public short getShort(String sectionName, String propertyName) {
-        return getShort(sectionName, propertyName, 0);
+        return getShortLast(sectionName, propertyName);
     }
 
     @Override
@@ -249,7 +252,7 @@ public class IniFile implements IniReader {
 
     @Override
     public short getShortWithDefault(String sectionName, String propertyName, short defaultValue) {
-        return getShortWithDefault(sectionName, propertyName, defaultValue, 0);
+        return getShortLastWithDefault(sectionName, propertyName, defaultValue);
     }
 
     @Override
@@ -304,7 +307,7 @@ public class IniFile implements IniReader {
 
     @Override
     public int getInt(String sectionName, String propertyName) {
-        return getInt(sectionName, propertyName, 0);
+        return getIntLast(sectionName, propertyName);
     }
 
     @Override
@@ -319,7 +322,7 @@ public class IniFile implements IniReader {
 
     @Override
     public int getIntWithDefault(String sectionName, String propertyName, int defaultValue) {
-        return getIntWithDefault(sectionName, propertyName, defaultValue, 0);
+        return getIntLastWithDefault(sectionName, propertyName, defaultValue);
     }
 
     @Override
@@ -374,7 +377,7 @@ public class IniFile implements IniReader {
 
     @Override
     public long getLong(String sectionName, String propertyName) {
-        return getLong(sectionName, propertyName, 0);
+        return getLongLast(sectionName, propertyName);
     }
 
     @Override
@@ -389,7 +392,7 @@ public class IniFile implements IniReader {
 
     @Override
     public long getLongWithDefault(String sectionName, String propertyName, long defaultValue) {
-        return getLongWithDefault(sectionName, propertyName, defaultValue, 0);
+        return getLongLastWithDefault(sectionName, propertyName, defaultValue);
     }
 
     @Override
@@ -444,7 +447,7 @@ public class IniFile implements IniReader {
 
     @Override
     public float getFloat(String sectionName, String propertyName) {
-        return getFloat(sectionName, propertyName, 0);
+        return getFloatLast(sectionName, propertyName);
     }
 
     @Override
@@ -459,7 +462,7 @@ public class IniFile implements IniReader {
 
     @Override
     public float getFloatWithDefault(String sectionName, String propertyName, float defaultValue) {
-        return getFloatWithDefault(sectionName, propertyName, defaultValue, 0);
+        return getFloatLastWithDefault(sectionName, propertyName, defaultValue);
     }
 
     @Override
@@ -514,7 +517,7 @@ public class IniFile implements IniReader {
 
     @Override
     public double getDouble(String sectionName, String propertyName) {
-        return getDouble(sectionName, propertyName, 0);
+        return getDoubleLast(sectionName, propertyName);
     }
 
     @Override
@@ -529,7 +532,7 @@ public class IniFile implements IniReader {
 
     @Override
     public double getDoubleWithDefault(String sectionName, String propertyName, double defaultValue) {
-        return getDoubleWithDefault(sectionName, propertyName, defaultValue, 0);
+        return getDoubleLastWithDefault(sectionName, propertyName, defaultValue);
     }
 
     @Override
@@ -584,11 +587,11 @@ public class IniFile implements IniReader {
 
     public void load(final String filePath) {
         try {
-            final File file = new File(filePath);
+
             final BufferedReader reader;
 
-            if (file.exists()) {
-                reader = new BufferedReader(new FileReader(file));
+            if (Files.exists(Paths.get(filePath))) {
+                reader = new BufferedReader(new FileReader(filePath));
             } else {
                 reader = new BufferedReader(new FileReader(baseDirectory + File.separator + filePath));
             }
@@ -609,7 +612,6 @@ public class IniFile implements IniReader {
 
         if (line.length() <= 0)
             return;
-
         if (line.startsWith(".include")) {
             parseInclude(line);
         } else if (line.charAt(0) == '[') {
