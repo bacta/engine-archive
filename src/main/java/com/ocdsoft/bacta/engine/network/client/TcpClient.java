@@ -51,6 +51,7 @@ public final class TcpClient extends Observable {
                     // Start the client.
                     ChannelFuture f = b.connect(remoteAddress); // (5)
 
+                    update();
                     notifyObservers(TcpServer.Status.CONNECTED);
                     // Wait until the connection is closed.
                     f.channel().closeFuture().sync();
