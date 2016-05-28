@@ -592,8 +592,10 @@ public class IniFile implements IniReader {
 
             if (Files.exists(Paths.get(filePath))) {
                 reader = new BufferedReader(new FileReader(filePath));
-            } else {
+            } else if (Files.exists(Paths.get(baseDirectory + File.separator + filePath))){
                 reader = new BufferedReader(new FileReader(baseDirectory + File.separator + filePath));
+            } else {
+                return;
             }
 
             String line;
