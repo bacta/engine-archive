@@ -1,6 +1,7 @@
 package com.ocdsoft.bacta.engine.object.account;
 
 import java.io.Serializable;
+import java.net.InetAddress;
 
 public interface Account extends Serializable {
 
@@ -17,4 +18,7 @@ public interface Account extends Serializable {
 
     void setAuthExpiration(long expiration);
     long getAuthExpiration();
+
+	void setAuthInetAddress(InetAddress address);
+	InetAddress getAuthInetAddress();
 }
