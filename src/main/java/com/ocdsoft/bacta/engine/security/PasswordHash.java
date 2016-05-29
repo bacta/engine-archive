@@ -1,4 +1,4 @@
-package com.ocdsoft.bacta.engine.security.password;
+package com.ocdsoft.bacta.engine.security;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;

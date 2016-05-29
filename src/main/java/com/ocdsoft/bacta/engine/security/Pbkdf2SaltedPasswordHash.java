@@ -1,4 +1,6 @@
-package com.ocdsoft.bacta.engine.security.password;
+package com.ocdsoft.bacta.engine.security;
+
+import com.ocdsoft.bacta.engine.security.PasswordHash;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

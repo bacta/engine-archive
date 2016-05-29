@@ -1,4 +1,4 @@
-package com.ocdsoft.bacta.engine.security.authenticator;
+package com.ocdsoft.bacta.engine.service;
 
 import com.ocdsoft.bacta.engine.object.account.Account;
 
