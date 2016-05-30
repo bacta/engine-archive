@@ -14,6 +14,7 @@ import org.magnos.steer.vec.Vec3;
 
 import javax.vecmath.Quat4f;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -274,6 +275,16 @@ public class BufferUtil {
         return set;
     }
 
+    public static <T> TreeSet <T> getTreeSet(ByteBuffer buffer, Function<ByteBuffer, T> valueResolver) {
+        final int size = buffer.getInt();
+        final TreeSet<T> set = new TreeSet<>();
+
+        for (int i = 0; i < size; ++i)
+            set.add(valueResolver.apply(buffer));
+
+        return set;
+    }
+
     public static TIntArrayList getTIntArrayList(ByteBuffer buffer) {
         final int size = buffer.getInt();
         final TIntArrayList list = new TIntArrayList(size);
@@ -369,5 +380,31 @@ public class BufferUtil {
             BufferUtil.put(buffer, item);
             return true;
         });
+    }
+
+    public static ByteBuffer ensureCapacity(final ByteBuffer buffer, final int additionalSize) {
+
+        if(buffer.remaining() >= additionalSize) {
+            return buffer;
+        }
+
+        int newLength;
+        final int length = buffer.limit();
+        final int neededLength = length + additionalSize - buffer.remaining();
+
+        for (newLength = length * 2; newLength < neededLength; newLength *= 2) ;
+
+        final ByteBuffer newBuffer = ByteBuffer.allocate(newLength).order(ByteOrder.LITTLE_ENDIAN);
+        buffer.limit(buffer.position());
+        buffer.rewind();
+        newBuffer.put(buffer);
+
+        return newBuffer;
+    }
+
+    public static ByteBuffer combineBuffers(ByteBuffer firstBuffer, final ByteBuffer secondBuffer) {
+        firstBuffer = ensureCapacity(firstBuffer, secondBuffer.remaining());
+        firstBuffer.put(secondBuffer);
+        return firstBuffer;
     }
 }
