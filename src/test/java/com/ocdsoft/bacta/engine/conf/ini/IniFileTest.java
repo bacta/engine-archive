@@ -1,6 +1,5 @@
-package com.ocdsoft.bacta.ini;
+package com.ocdsoft.bacta.engine.conf.ini;
 
-import com.ocdsoft.bacta.engine.conf.ini.IniFile;
 import org.junit.Test;
 
 import java.util.Collection;
