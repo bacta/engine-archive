@@ -32,4 +32,36 @@ public class StringUtil {
 
         return Character.toUpperCase(c) + string.substring(1);
     }
+
+    /**
+     * Gets the first, white-space bound word in a string.
+     *
+     * @param string The input string.
+     * @return Returns the first word in the string.
+     */
+    public static String getFirstWord(final String string) {
+        //Input string could be something like
+        //"    \tHouston we have a problem    "
+        //We need to extract Houston from that string.
+        final int len = string.length();
+        //It's unlikely that a "word" will exceed 200 characters. In case the input is something like an entire file
+        //we will limit the initial capacity of the StringBuilder to 200 bytes, or len, whichever is smaller.
+        final StringBuilder sb = new StringBuilder(len > 200 ? 200 : len);
+
+        for (int i = 0; i < len; ++i) {
+            final char c = string.charAt(i);
+
+            if (Character.isWhitespace(c)) {
+                //If the StringBuilder has been written to then we've got our first word.
+                if (sb.length() > 0)
+                    break;
+
+                continue;
+            }
+
+            sb.append(c);
+        }
+
+        return sb.toString();
+    }
 }
