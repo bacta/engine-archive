@@ -19,9 +19,9 @@ class BufferUtilTest extends Specification {
         initialBuffer.position() == expectedPosition
 
         where:
-        initialBuffer               |   secondBuffer             |   expectedPosition
-        ByteBuffer.allocate(100)    |   ByteBuffer.allocate(100) |   100
-        ByteBuffer.allocate(100)    |   ByteBuffer.allocate(200) |   300
-        ByteBuffer.allocate(50)     |   ByteBuffer.allocate(500) |   550
+        initialBuffer                             |   secondBuffer             |   expectedPosition
+        ByteBuffer.allocate(100).position(100)    |   ByteBuffer.allocate(100) |   200
+        ByteBuffer.allocate(100).position(100)   |   ByteBuffer.allocate(200) |   300
+        ByteBuffer.allocate(50).position(50)    |   ByteBuffer.allocate(500) |   550
     }
 }

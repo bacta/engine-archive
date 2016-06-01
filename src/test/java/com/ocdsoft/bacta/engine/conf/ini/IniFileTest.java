@@ -41,7 +41,7 @@ public class IniFileTest {
     @Test
     public void testGetStringWithDefault() throws Exception {
         //No default value needed cases
-        assertTrue(iniFile.getStringWithDefault("TestSection", "testString", "testValue").equals("test1"));
+        assertTrue(iniFile.getStringWithDefault("TestSection", "testString", "testValue").equals("test3"));
 
         //Default value cases
         assertTrue(iniFile.getStringWithDefault("NonexistentSection", "testString", "testValue").equals("testValue"));
