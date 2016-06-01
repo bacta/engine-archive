@@ -2,10 +2,7 @@ package com.ocdsoft.bacta.engine.conf.ini;
 
 import org.junit.Test;
 
-import java.util.Collection;
-
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by crush on 3/21/14.
@@ -20,57 +17,57 @@ public class IniFileTest {
 
     @Test
     public void testGetString() throws Exception {
-        assertTrue(iniFile.getString("TestSection", "testString1").equals("Test1"));
+        assertEquals("Test1", iniFile.getString("TestSection", "testString1"));
     }
 
     @Test
     public void testGetStringWithNullContent() throws Exception {
-        assertTrue(iniFile.getString("TestSection", "testString2").equals(""));
+        assertEquals("", iniFile.getString("TestSection", "testString2"));
     }
 
     @Test
     public void testGetStringWithIndex() throws Exception {
-        assertTrue(iniFile.getString("TestSection", "testString", 1).equals("test2"));
+        assertEquals("test2", iniFile.getString("TestSection", "testString", 1));
     }
 
     @Test
     public void testGetStringLast() throws Exception {
-        assertTrue(iniFile.getStringLast("TestSection", "testString").equals("test3"));
+        assertEquals("test3", iniFile.getStringLast("TestSection", "testString"));
     }
 
     @Test
     public void testGetStringWithDefault() throws Exception {
         //No default value needed cases
-        assertTrue(iniFile.getStringWithDefault("TestSection", "testString", "testValue").equals("test3"));
+        assertEquals("test3", iniFile.getStringWithDefault("TestSection", "testString", "testValue"));
 
         //Default value cases
-        assertTrue(iniFile.getStringWithDefault("NonexistentSection", "testString", "testValue").equals("testValue"));
-        assertTrue(iniFile.getStringWithDefault("TestSection", "nonexistentProperty", "testValue").equals("testValue"));
+        assertEquals("testValue", iniFile.getStringWithDefault("NonexistentSection", "testString", "testValue"));
+        assertEquals("testValue", iniFile.getStringWithDefault("TestSection", "nonexistentProperty", "testValue"));
     }
 
     @Test
     public void testGetStringWithDefaultWithIndex() throws Exception {
         //No default value needed cases
-        assertTrue(iniFile.getStringWithDefault("TestSection", "testString", "testValue", 2).equals("test3"));
+        assertEquals("test3", iniFile.getStringWithDefault("TestSection", "testString", "testValue", 2));
 
         //Default value cases
-        assertTrue(iniFile.getStringWithDefault("NonexistentSection", "testString", "testValue", 2).equals("testValue"));
-        assertTrue(iniFile.getStringWithDefault("TestSection", "nonexistentProperty", "testValue", 2).equals("testValue"));
-        assertTrue(iniFile.getStringWithDefault("TestSection", "testString", "testValue", 129234).equals("testValue"));
+        assertEquals("testValue", iniFile.getStringWithDefault("NonexistentSection", "testString", "testValue", 2));
+        assertEquals("testValue", iniFile.getStringWithDefault("TestSection", "nonexistentProperty", "testValue", 2));
+        assertEquals("testValue", iniFile.getStringWithDefault("TestSection", "testString", "testValue", 129234));
     }
 
     @Test
     public void testGetStringLastWithDefault() throws Exception {
-        assertTrue(iniFile.getStringLastWithDefault("TestSection", "testString", "testValue").equals("test3"));
-        assertTrue(iniFile.getStringLastWithDefault("TestSection", "nonexistentProperty", "testValue").equals("testValue"));
-        assertTrue(iniFile.getStringLastWithDefault("NonexistentSection", "testString", "testValue").equals("testValue"));
+        assertEquals("test3", iniFile.getStringLastWithDefault("TestSection", "testString", "testValue"));
+        assertEquals("testValue", iniFile.getStringLastWithDefault("TestSection", "nonexistentProperty", "testValue"));
+        assertEquals("testValue", iniFile.getStringLastWithDefault("NonexistentSection", "testString", "testValue"));
     }
 
     @Test
     public void testGetStringCollection() throws Exception {
-        String[] expecteds = new String[]{"test1", "test2", "test3"};
-        Collection<String> collection = iniFile.getStringCollection("TestSection", "testString");
-        assertArrayEquals(expecteds, collection.toArray(new String[3]));
+        final String[] expected = new String[]{"test1", "test2", "test3"};
+        final String[] actual = iniFile.getStringCollection("TestSection", "testString").toArray(new String[3]);
+        assertArrayEquals(expected, actual);
     }
 
     @Test
