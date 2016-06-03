@@ -111,13 +111,21 @@ public class BufferUtil {
     }
 
     public static void putAscii(ByteBuffer buffer, String value) {
-        buffer.putShort((short) value.length());
-        buffer.put(value.getBytes(ISO_8859_1));
+        if (value != null) {
+            buffer.putShort((short) value.length());
+            buffer.put(value.getBytes(ISO_8859_1));
+        } else {
+            buffer.putShort((short) 0);
+        }
     }
 
     public static void putUnicode(ByteBuffer buffer, String value) {
-        buffer.putInt(value.length());
-        buffer.put(value.getBytes(UTF_16LE));
+        if (value != null) {
+            buffer.putInt(value.length());
+            buffer.put(value.getBytes(UTF_16LE));
+        } else {
+            buffer.putInt(0);
+        }
     }
 
     public static String getUnicode(ByteBuffer buffer) {
@@ -128,8 +136,12 @@ public class BufferUtil {
     }
 
     public static void putBinaryString(ByteBuffer buffer, String value) {
-        buffer.putInt(value.length());
-        buffer.put(value.getBytes(ISO_8859_1));
+        if (value != null) {
+            buffer.putInt(value.length());
+            buffer.put(value.getBytes(ISO_8859_1));
+        } else {
+            buffer.putInt(0);
+        }
     }
 
     public static String getBinaryString(ByteBuffer buffer) {
@@ -167,16 +179,29 @@ public class BufferUtil {
     }
 
     public static void put(ByteBuffer buffer, Vec3 vector) {
-        buffer.putFloat(vector.x);
-        buffer.putFloat(vector.z);
-        buffer.putFloat(vector.y);
+        if (vector != null) {
+            buffer.putFloat(vector.x);
+            buffer.putFloat(vector.z);
+            buffer.putFloat(vector.y);
+        } else {
+            buffer.putFloat(0.f);
+            buffer.putFloat(0.f);
+            buffer.putFloat(0.f);
+        }
     }
 
     public static void put(ByteBuffer buffer, Quat4f quaternion) {
-        buffer.putFloat(quaternion.x); // X Direction
-        buffer.putFloat(quaternion.y); // Y Direction
-        buffer.putFloat(quaternion.z); // Z Direction
-        buffer.putFloat(quaternion.w); // W Direction
+        if (quaternion != null) {
+            buffer.putFloat(quaternion.x); // X Direction
+            buffer.putFloat(quaternion.y); // Y Direction
+            buffer.putFloat(quaternion.z); // Z Direction
+            buffer.putFloat(quaternion.w); // W Direction
+        } else {
+            buffer.putFloat(0.f);
+            buffer.putFloat(0.f);
+            buffer.putFloat(0.f);
+            buffer.putFloat(1.f);
+        }
     }
 
     public static void put(ByteBuffer buffer, boolean value) {
@@ -275,7 +300,7 @@ public class BufferUtil {
         return set;
     }
 
-    public static <T> TreeSet <T> getTreeSet(ByteBuffer buffer, Function<ByteBuffer, T> valueResolver) {
+    public static <T> TreeSet<T> getTreeSet(ByteBuffer buffer, Function<ByteBuffer, T> valueResolver) {
         final int size = buffer.getInt();
         final TreeSet<T> set = new TreeSet<>();
 
@@ -384,7 +409,7 @@ public class BufferUtil {
 
     public static ByteBuffer ensureCapacity(final ByteBuffer buffer, final int additionalSize) {
 
-        if(buffer.remaining() >= additionalSize) {
+        if (buffer.remaining() >= additionalSize) {
             return buffer;
         }
 
